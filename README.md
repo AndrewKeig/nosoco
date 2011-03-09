@@ -12,7 +12,7 @@ This app requires a couchdb database; defined in couchdb.json with the following
     team_2_id	    "2"
     team_2_score	"0"
 
-### Features
+### How to use
 
 Update the scores using Futon or curl to push changes to the client...
 

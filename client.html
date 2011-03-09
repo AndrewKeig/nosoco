@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
     <head>
-        <style>
-            #container{ font-family:arial;font-size:10px;border:1px dashed #ddd;width:300px;height:200px;overflow:auto;padding:30px;}
-            #fixtures {list-style-type:none;}
-            #fixtures li { border-bottom:1px solid #ccc; text-align:center;padding-bottom:2px; margin-bottom:5px;}
-        </style>
+        <link href='style.css' rel='stylesheet' type='text/css' media='screen' />
         <script src="http://cdn.socket.io/stable/socket.io.js"></script>
         <script>
             var socket = new io.Socket('127.0.0.1',{ port: 8080 });
