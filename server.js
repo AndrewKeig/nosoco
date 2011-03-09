@@ -21,13 +21,22 @@ socket.on('connection', function(client){
         if (er) throw new Error(JSON.stringify(er));
         for (var i = 0; i < docs.rows.length; i++) {
             couchdb_controller.db.getDoc(docs.rows[i].id, function(er, doc) {
-                if (er) throw new Error(JSON.stringify(er));
-                var latest = doc.team_1 +
-                ' <span id="team_score_' + doc.team_1_id + '">' +
-                doc.team_1_score + '</span> ' +
-                ' - <span id="team_score_' + doc.team_2_id + '">' +
-                doc.team_2_score + '</span> ' + doc.team_2;
-                client.send(latest);
+                if (er) throw new Error(JSON.stringify(er));                
+                var buffer = [];
+                buffer.push(doc.team_1);
+                buffer.push(' <span id="team_score_');
+                buffer.push(doc.team_1_id);
+                buffer.push('">');
+                buffer.push(doc.team_1_score);                
+                buffer.push('</span> ');
+                buffer.push(' - <span id="team_score_');
+                buffer.push(doc.team_2_id);
+                buffer.push('">');
+                buffer.push(doc.team_2_score);
+                buffer.push('</span> ');
+                buffer.push(doc.team_2);
+                var latestScore = buffer.join('');
+                client.send(latestScore);
             });
         }		
     });
@@ -35,10 +44,19 @@ socket.on('connection', function(client){
     couchdb_controller.couchdb_changes(function(change) {       
         couchdb_controller.db.getDoc(change.id, function(er, doc) {
             if (er) throw new Error(JSON.stringify(er));
-
-            var json = '{"rows" : [' +
-            '{ "id" : "team_score_' + doc.team_1_id + '", "score" : "' + 					 doc.team_1_score + '" },' +
-            '{ "id" : "team_score_' + doc.team_2_id + '", "score" : "' + 				 doc.team_2_score + '" }]}';
+            var buffer = [];
+            buffer.push('{"rows" : [');
+            buffer.push('{ "id" : "team_score_');
+            buffer.push(doc.team_1_id);
+            buffer.push('", "score" : "');
+            buffer.push(doc.team_1_score);
+            buffer.push('" },');
+            buffer.push('{ "id" : "team_score_');
+            buffer.push(doc.team_2_id);
+            buffer.push('", "score" : "');
+            buffer.push(doc.team_2_score);
+            buffer.push('" }]}');
+            var json = buffer.join('');
             client.send(JSON.parse(json));
         });
     });
