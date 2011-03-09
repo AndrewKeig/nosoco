@@ -1,5 +1,5 @@
 couchdbconfig = {
-	port : '5984', 
-	host : 'localhost', 
-	db : 'air-comet'
+    port : '5984',
+    host : 'localhost',
+    db : 'air-comet'
 }
