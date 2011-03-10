@@ -1,7 +1,7 @@
 nosoco
 =========
 
-#### Simple web application which pushes couchdb changes to a web client via node.js/socket.io
+Pushing couchdb changes to a web client via node.js/socket.io
 
 This app requires a couchdb database; defined in couchdb.json with the following fields:
 
